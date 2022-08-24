@@ -19,7 +19,7 @@ class Display:
 
     def __init__(self, sudoku_size: int,
                  window_width: int, window_height: int):
-        """Initilize display object
+        """Initialize display object
 
         Args:
             sudoku_size (int): board size (number of boxes per row/column)
