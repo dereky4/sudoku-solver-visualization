@@ -52,6 +52,8 @@ def main() -> None:
         Args:
             highlighted (bool): highlight if true, unhighlight is false
         """
+        if selected_i is None:
+            return
         display.draw_cell_and_update(selected_i, selected_j,
                                      sudoku[selected_i][selected_j],
                                      sudoku_state[selected_i][selected_j],
@@ -65,16 +67,13 @@ def main() -> None:
                 break
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+                update_selected(False)
                 x, y = pygame.mouse.get_pos()
                 new_i, new_j = display.get_cell(x, y)
-
                 # if selection is invalid
                 if (new_i is None or
                         sudoku_state[new_i][new_j] == CellState.LOCKED):
                     continue
-
-                if selected_i is not None:
-                    update_selected(False)
 
                 selected_i, selected_j = new_i, new_j
                 update_selected(True)
@@ -84,6 +83,7 @@ def main() -> None:
                 continue
 
             if event.key == pygame.K_SPACE:
+                update_selected(False)
                 # if any user entered values are incorrect
                 if any(sudoku_val and sudoku_val != solution_val
                        for rows in zip(sudoku, solution)
